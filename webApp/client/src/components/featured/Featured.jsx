@@ -9,15 +9,27 @@ const Featured = () => {
     "/hotels/countByCity?cities=berlin,madrid,london"
   );
   
-  const {dispatch} = useContext(SearchContext)
+  const { dispatch } = useContext(SearchContext);
 
   const navigate = useNavigate();
 
   const handleNavigate = (city) => {
-    dispatch({ type: "NEW_SEARCH", payload: { destination: city, dates: [], options: {} }});
-    navigate("/hotels", { state: { destination: city } });
+    const defaultDates = [
+      {
+        startDate: new Date(),
+        endDate: new Date(),
+        key: "selection",
+      },
+    ];
+    const defaultOptions = {
+      adult: 1,
+      children: 0,
+      room: 1,
+    };
+    
+    dispatch({ type: "NEW_SEARCH", payload: { destination: city, dates: defaultDates, options: defaultOptions } });
+    navigate("/hotels", { state: { destination: city, dates: defaultDates, options: defaultOptions } });
   };
-
 
   return (
     <div className="featured">
@@ -25,7 +37,7 @@ const Featured = () => {
         "Loading please wait"
       ) : (
         <>
-          <div className="featuredItem"  onClick={() => handleNavigate("berlin")}>
+          <div className="featuredItem" onClick={() => handleNavigate("berlin")}>
             <img
               src="https://cf.bstatic.com/xdata/images/city/max500/957801.webp?k=a969e39bcd40cdcc21786ba92826063e3cb09bf307bcfeac2aa392b838e9b7a5&o="
               alt=""

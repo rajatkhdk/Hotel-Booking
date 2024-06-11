@@ -3,10 +3,13 @@ import useFetch from "../../hooks/useFetch";
 import "./featuredProperties.css";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import { useNavigate } from 'react-router-dom';
 
 const FeaturedProperties = () => {
+  const navigate = useNavigate();
   const { data, loading, error } = useFetch("/hotels?featured=true&limit=4");
 
+ 
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -27,6 +30,10 @@ const FeaturedProperties = () => {
     }
   };
 
+  const handleClick = (id) => {
+    navigate(`/hotels/${id}`);
+  }
+
   return (
     <div className="featuredProperties">
       {loading ? (
@@ -36,7 +43,8 @@ const FeaturedProperties = () => {
       ) : (
         <Carousel infinite={true} responsive={responsive}>
           {data && data.map((item) => (
-            <div className="fpItem" key={item._id}>
+            <div className="fpItem" key={item._id} onClick={() => handleClick(item._id)}> 
+            {/* onClick={handleClick(item._id)} */}
               <img src={item.photos[0]} alt="" className="fpImg" />
               <span className="fpName">{item.name}</span>
               <span className="fpCity">{item.city}</span>
