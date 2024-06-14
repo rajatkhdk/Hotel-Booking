@@ -23,7 +23,10 @@ const Navbar = () => {
   };
 
   const loginClick = () => {
-    navigate ("/login")
+    navigate("/login")
+  }
+  const registerClick = () => {
+    navigate("/register")
   }
 
   return (
@@ -34,7 +37,7 @@ const Navbar = () => {
           <UserMenu onLogout={handleLogout} user={user} />
         ) : (
           <div className="navItems">
-            <button className="navButton">Register</button>
+            <button className="navButton" onClick={registerClick}>Register</button>
             <button className="navButton" onClick={loginClick}>Login</button>
           </div>
         )}
