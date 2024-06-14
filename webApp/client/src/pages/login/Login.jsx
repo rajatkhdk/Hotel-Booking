@@ -32,9 +32,9 @@ const Login = () => {
 
   return (
     <>
-      <div class="login-container">
-        <div class="login">
-          <div class="lContainer">
+      <div className="login-container">
+        <div className="login">
+          <div className="lContainer">
             <input type="text" placeholder="username" id="username" onChange={handleChange} className="lInput" />
             <input type="password" placeholder="password" id="password" onChange={handleChange} className="lInput" />
             <button disabled={loading} onClick={handleClick} className="lButton">Login</button>

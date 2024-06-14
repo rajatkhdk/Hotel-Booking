@@ -9,14 +9,27 @@ const Navbar = () => {
   const { user } = useContext(AUTHContext);
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  
 
   const handleLogin = () => {
     setIsAuthenticated(true);
   };
 
+  console.log("user",user);
+  // console.log("username",user.username);
+  // console.log("details",user.details.username);
+  
+  const deleteCookie = (name) => {
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+}
   const handleLogout = () => {
     setIsAuthenticated(false);
+    localStorage.removeItem('user');
+    deleteCookie('accessToken');
+    window.location.reload();
   };
+
+  
 
   const handleClick = () => {
     navigate('/');
@@ -52,13 +65,12 @@ const UserMenu = ({ user, onLogout }) => {
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
-  console.log(user)
 
   return (
     <div className="user-menu">
       <div onClick={toggleDropdown} className="user-icon">
         <FontAwesomeIcon icon={faUser} />
-        <span>{user.details.username}</span>
+        <span>{user.username}</span>
       </div>
       {dropdownOpen && <DropDownProfile onLogout={onLogout} />}
     </div>
