@@ -23,7 +23,7 @@
 
 .lsTitle{
   font-size: 20px;
-  color: #555;
+  color: #a5e3a3;
   margin-bottom: 10px;
 }
 
@@ -80,4 +80,9 @@
 
 .listResult {
   flex: 3;
+}
+
+button:disabled{
+  background-color: gray;
+  cursor: not-allowed;
 }

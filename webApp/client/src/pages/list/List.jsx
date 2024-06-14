@@ -2,11 +2,12 @@ import "./list.css";
 import Navbar from "../../components/navbar/Navbar";
 import Header from "../../components/header/Header";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
 import SearchItem from "../../components/searchItem/SearchItem";
 import useFetch from "../../hooks/useFetch";
+import { SearchContext } from "../../context/SearchContext";
 
 const List = () => {
   const location = useLocation();
@@ -29,14 +30,43 @@ const List = () => {
   const [options, setOptions] = useState(defaultOptions);
   const [min, setMin] = useState(undefined);
   const [max, setMax] = useState(undefined);
+  const { dispatch } = useContext(SearchContext);
+  const [isSearchEnabled, setIsSearchEnabled] = useState(true);
 
   const { data, loading, error, reFetch } = useFetch(
     `/hotels?city=${destination}&min=${min || 0}&max=${max || 999}`
   );
 
+  useEffect(() => {
+    // Check if either dates or options have changed
+ if (dates !== defaultDates || options !== defaultOptions) {
+   // If either has changed, enable search
+   setIsSearchEnabled(true);
+ } else {
+   // Otherwise, disable search
+   setIsSearchEnabled(false);
+ }
+ },[dates, options]);
+
   const handleClick = () => {
     reFetch();
+    handleSearch();
   };
+
+  const handleSearch = () => {
+    dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options }});
+    setIsSearchEnabled(false);
+  };
+
+  const handleOptionsChange = (optionName, value) => {
+    setOptions({ ...options, [optionName]: value});
+    setIsSearchEnabled("true");
+  }
+
+  const handleDatesChange = (ranges) => {
+    setDates([ranges.selection]);
+    setIsSearchEnabled(true);
+  }
 
   return (
     <div>
@@ -62,7 +92,7 @@ const List = () => {
               )} to ${format(dates[0].endDate, "MM/dd/yyyy")}`}</span>
               {openDate && (
                 <DateRange
-                  onChange={(item) => setDates([item.selection])}
+                  onChange={(item) => handleDatesChange(item)}
                   minDate={new Date()}
                   ranges={dates}
                 />
@@ -97,7 +127,8 @@ const List = () => {
                     type="number"
                     min={1}
                     className="lsOptionInput"
-                    placeholder={options.adult}
+                    value={options.adult}
+                    onChange={(e) => handleOptionsChange('adult', e.target.value)}
                   />
                 </div>
                 <div className="lsOptionItem">
@@ -106,7 +137,8 @@ const List = () => {
                     type="number"
                     min={0}
                     className="lsOptionInput"
-                    placeholder={options.children}
+                    value={options.children}
+                    onChange={(e) => handleOptionsChange('children',e.target.value)}
                   />
                 </div>
                 <div className="lsOptionItem">
@@ -115,12 +147,18 @@ const List = () => {
                     type="number"
                     min={1}
                     className="lsOptionInput"
-                    placeholder={options.room}
+                    value={options.room}
+                    onChange={(e) => handleOptionsChange('room', e.target.value )}
                   />
                 </div>
               </div>
             </div>
-            <button onClick={handleClick}>Search</button>
+            {isSearchEnabled && (
+              <div className="searchPrompt">
+                Please press the search button to update results.
+              </div>
+            )}
+            <button onClick={handleClick} disabled = {!isSearchEnabled}>Search</button>
           </div>
           <div className="listResult">
             {loading ? (
