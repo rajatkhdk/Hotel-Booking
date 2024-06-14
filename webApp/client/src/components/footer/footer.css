@@ -1,7 +1,7 @@
 .footer{
   width: 100vw;
   font-size: 12px;
-  background-color: rgb(38, 38, 38);
+  background-color: #A28089;
 }
 
 .fLists{
@@ -12,8 +12,9 @@
 }
 
 .fList{
+  margin-top: 13px;
   list-style: none;
-  padding: 0;
+  padding: 10px;
 }
 
 .fListItem{
