@@ -60,7 +60,7 @@ const Register = () => {
             <button disabled={loading} onClick={handleClick} className="lButton">
               Register
             </button>
-            {error && <span>{error.message}</span>}
+            {error && <span className="error">{error.message}</span>}
           </div>
         </div>
       </div>

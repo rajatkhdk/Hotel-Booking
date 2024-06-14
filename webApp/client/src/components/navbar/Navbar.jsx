@@ -52,12 +52,13 @@ const UserMenu = ({ user, onLogout }) => {
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
+  console.log(user)
 
   return (
     <div className="user-menu">
       <div onClick={toggleDropdown} className="user-icon">
         <FontAwesomeIcon icon={faUser} />
-        <span>{user.username}</span>
+        <span>{user.details.username}</span>
       </div>
       {dropdownOpen && <DropDownProfile onLogout={onLogout} />}
     </div>
