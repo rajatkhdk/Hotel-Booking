@@ -9,6 +9,9 @@ const Register = () => {
     username: undefined,
     email: undefined,
     password: undefined,
+    country: undefined,
+    city: undefined,
+    phone: undefined,
   });
 
   const { loading, error, dispatch } = useContext(AUTHContext);
@@ -54,6 +57,27 @@ const Register = () => {
               type="password"
               placeholder="password"
               id="password"
+              onChange={handleChange}
+              className="lInput"
+            />
+            <input
+              type="text"
+              placeholder="Country"
+              id="country"
+              onChange={handleChange}
+              className="lInput"
+            />
+            <input
+              type="text"
+              placeholder="City"
+              id="city"
+              onChange={handleChange}
+              className="lInput"
+            />
+            <input
+              type="text"
+              placeholder="Phone"
+              id="phone"
               onChange={handleChange}
               className="lInput"
             />

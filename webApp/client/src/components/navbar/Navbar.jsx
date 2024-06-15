@@ -45,7 +45,7 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="navContainer">
-        <span className="logo" onClick={handleClick}>FIZZY</span>
+        <span className="logo" onClick={handleClick}><h2>FIZZY</h2></span>
         {user ? (
           <UserMenu onLogout={handleLogout} user={user} />
         ) : (
