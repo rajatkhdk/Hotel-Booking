@@ -3,7 +3,7 @@ import Room from "./Room.js";
 import Hotel from "./Hotel.js";
 import User from "./User.js";
 
-const BookingSchema = new mongoose.Schema(
+const BookingSchema = new Schema(
     {
         hotel: {
             type: Schema.Types.ObjectId,

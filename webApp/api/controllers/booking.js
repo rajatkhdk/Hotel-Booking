@@ -6,7 +6,8 @@ export const createBooking = async (req, res, next) => {
 
     try {
         const savedBooking = await newBooking.save()
-        res.status(200).json(savedBooking)
+        // add unavailable dates for room
+        res.status(201).json(savedBooking)
     } catch (error) {
        next(error)
     }
