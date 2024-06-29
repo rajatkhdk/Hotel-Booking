@@ -15,7 +15,7 @@ const Navbar = () => {
     setIsAuthenticated(true);
   };
 
-  console.log("user",user);
+  //console.log("user",user);
   // console.log("username",user.username);
   // console.log("details",user.details.username);
   

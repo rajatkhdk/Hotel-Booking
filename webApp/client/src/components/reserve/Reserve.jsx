@@ -50,19 +50,33 @@ const Reserve = ({setOpen, hotelId}) => {
       : selectedRooms.filter((item) => (item !== value)))
   };
 
+  // const handleClick = async () => {
+  //   try {
+  //     await Promise.all(selectedRooms.map(roomId => {
+  //       const res = axios.put(`/rooms/availability/${roomId}`,{dates:allDates})
+  //       return res.data;
+  //     })
+  //   );
+  //   setOpen(false);
+  //   navigate('/booking')
+  //   } catch (error) {
+      
+  //   }
+  // }
+
   const handleClick = async () => {
     try {
-      await Promise.all(selectedRooms.map(roomId => {
-        const res = axios.put(`/rooms/availability/${roomId}`,{dates:allDates})
-        return res.data;
-      })
-    );
-    setOpen(false);
-    navigate('/')
+      // await Promise.all(selectedRooms.map(roomId => {
+      //   const res = axios.put(`/rooms/availability/${roomId}`, { dates: allDates });
+      //   return res.data;
+      // }));
+      setOpen(false);
+      navigate('/booking', { state: { selectedRooms, dates: allDates } });
+      console.log(selectedRooms,allDates)
     } catch (error) {
-      
+      console.error(error);
     }
-  }
+  };
 
   return (
     
@@ -90,7 +104,7 @@ const Reserve = ({setOpen, hotelId}) => {
                   <label>{roomNumber.number}</label>
                   <input 
                   type="checkbox" 
-                  value={roomNumber._id} 
+                  value={roomNumber.number} 
                   onChange={handleSelect}
                   disabled = {!isAvailable(roomNumber)}
                   />
