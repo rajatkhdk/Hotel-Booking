@@ -7,6 +7,7 @@ import roomsRoute from "./routes/rooms.js"
 import hotelsRoute from "./routes/hotels.js"
 import bookingRoute from "./routes/booking.js"
 import reviewsRoute from "./routes/reviews.js"
+import paymentRoute from "./routes/payment.js"
 import CookieParser from 'cookie-parser'
 import cors from 'cors'
 
@@ -18,6 +19,8 @@ const app = express()
 
 //middlewares
 
+app.use(cors());
+
 app.use(CookieParser())
 
 app.use(express.json())
@@ -28,6 +31,7 @@ app.use("/api/hotels", hotelsRoute);
 app.use("/api/rooms", roomsRoute);
 app.use("/api/bookings", bookingRoute);
 app.use("/api/reviews",reviewsRoute);
+app.use("/api/payment", paymentRoute);
 
 app.use((err, req, res, next) => {
 const errorStatus = err.status || 500;

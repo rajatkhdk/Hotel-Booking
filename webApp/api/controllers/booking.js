@@ -53,3 +53,4 @@ export const deleteBooking = async (req, res, next) => {
         next(error);
     }
 }
+

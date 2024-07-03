@@ -9,6 +9,8 @@ import List from "./pages/list/List";
 import Login from "./pages/login/Login";
 import Register from "./pages/Register";
 import Booking from "./pages/Booking/Booking";
+import Success from "./components/redirect/Success";
+import Cancel from "./components/redirect/Cancel";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/booking" element={<Booking />}/>
+        <Route path="/success" element={<Success />}/>
+        <Route path="/cancel" element={<Cancel />}/>
       </Routes>
     </BrowserRouter>
   );

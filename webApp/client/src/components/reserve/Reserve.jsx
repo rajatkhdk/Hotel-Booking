@@ -71,7 +71,7 @@ const Reserve = ({setOpen, hotelId}) => {
       //   return res.data;
       // }));
       setOpen(false);
-      navigate('/booking', { state: { selectedRooms, dates: allDates } });
+      navigate('/booking', { state: {hotelId, selectedRooms, dates: allDates } });
       console.log(selectedRooms,allDates)
     } catch (error) {
       console.error(error);
@@ -104,7 +104,7 @@ const Reserve = ({setOpen, hotelId}) => {
                   <label>{roomNumber.number}</label>
                   <input 
                   type="checkbox" 
-                  value={roomNumber.number} 
+                  value={item._id} 
                   onChange={handleSelect}
                   disabled = {!isAvailable(roomNumber)}
                   />
