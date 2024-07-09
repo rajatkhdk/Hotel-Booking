@@ -42,12 +42,17 @@ const Navbar = () => {
     navigate("/register")
   }
 
+  const handleBooking = (e) => {
+  e.preventDefault();
+  navigate("/MyBooking")
+  }
+
   return (
     <div className="navbar">
       <div className="navContainer">
         <span className="logo" onClick={handleClick}><h2>FIZZY</h2></span>
         {user ? (
-          <UserMenu onLogout={handleLogout} user={user} />
+          <UserMenu onLogout={handleLogout} onBooking={handleBooking} user={user} />
         ) : (
           <div className="navItems">
             <button className="navButton" onClick={registerClick}>Register</button>
@@ -59,7 +64,7 @@ const Navbar = () => {
   );
 };
 
-const UserMenu = ({ user, onLogout }) => {
+const UserMenu = ({ user, onLogout, onBooking }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -72,17 +77,17 @@ const UserMenu = ({ user, onLogout }) => {
         <FontAwesomeIcon icon={faUser} />
         <span>{user.username}</span>
       </div>
-      {dropdownOpen && <DropDownProfile onLogout={onLogout} />}
+      {dropdownOpen && <DropDownProfile onBooking={onBooking} onLogout={onLogout} />}
     </div>
   );
 };
 
-const DropDownProfile = ({ onLogout }) => {
+const DropDownProfile = ({ onBooking, onLogout }) => {
   return (
     <div className="dropDownProfile">
       <ul className="dropDownProfileul">
         <li>Profile</li>
-        <li>Bookings</li>
+        <li onClick={onBooking}>Bookings</li>
         <li>Reviews</li>
         <li>Settings</li>
         <li onClick={onLogout}>Logout</li>

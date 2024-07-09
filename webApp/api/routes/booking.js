@@ -7,7 +7,7 @@ router.post("/",createBooking);
 
 router.get("/:id",getBooking);
 
-router.get("/users/:userId",getBookingByUser);
+router.get("/users/:userId",verifyT,getBookingByUser);
 
 router.put("/:id/cancel",deleteBooking)
 

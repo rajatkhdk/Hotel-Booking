@@ -4,6 +4,7 @@ import React, { useContext, useState } from 'react';
 import { AUTHContext } from "../../context/AuthContext";
 import { loadStripe } from '@stripe/stripe-js';
 import useFetch from "../../hooks/useFetch";
+import axios from "axios";
 
 const BookingPage = () => {
   const { user } = useContext(AUTHContext);
@@ -58,24 +59,43 @@ const BookingPage = () => {
 
  // {days * room.data.price}
 
- const booking = 
+ 
+
+      const bookings = 
+      {
+        hotel: hotelId,
+        user: user._id,
+        room: selectedRooms,
+        check_in: checkinDate,
+        check_out: checkoutDate,
+      }
+
+  const makePayment = async () => {
+    const bookingResponse = await axios.post("http://localhost:8800/api/bookings", bookings);
+    // console.log(bookingResponse.data._id);
+    if (bookingResponse.status !== 200 && bookingResponse.status !== 201) {
+      throw new Error('Failed to save booking');
+    }
+
+    console.log('Booking successfully saved to database');
+
+    const stripe = await loadStripe('pk_test_51PWhVjFgV1sC8V5tlzJolMHETRssDUrXPMw9c3bMV5JcMGMJl9CExdopgNNJvgi4Tn8cOdhnLDBIZWhDoyVb8Ppt00KxkGVqyi');
+
+    //const carts = [{id: 'room_101', name: 'Deluxe Room', price: 100, quantity: 1},{id: 'room_102', name: 'Suite Room', price: 200, quantity: 1}]
+    
+    const booking = 
       [{
         hotel: hotelId,
-        user: user.username,
+        user: user._id,
+        username: user.username,
         room: selectedRooms,
         room_type:room.data.title,
         check_in: checkinDate,
         check_out: checkoutDate,
         price: days * room.data.price,
+        booking_id:bookingResponse.data._id,
         quantity: 1
       }]
-
-  const makePayment = async () => {
-    const stripe = await loadStripe('pk_test_51PWhVjFgV1sC8V5tlzJolMHETRssDUrXPMw9c3bMV5JcMGMJl9CExdopgNNJvgi4Tn8cOdhnLDBIZWhDoyVb8Ppt00KxkGVqyi');
-
-    const carts = [{id: 'room_101', name: 'Deluxe Room', price: 100, quantity: 1},{id: 'room_102', name: 'Suite Room', price: 200, quantity: 1}]
-    
-    
 
     const body = {
       products: booking

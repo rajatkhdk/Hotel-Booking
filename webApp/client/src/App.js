@@ -11,6 +11,7 @@ import Register from "./pages/Register";
 import Booking from "./pages/Booking/Booking";
 import Success from "./components/redirect/Success";
 import Cancel from "./components/redirect/Cancel";
+import MyBooking from "./pages/MyBooking/MyBooking"
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/booking" element={<Booking />}/>
         <Route path="/success" element={<Success />}/>
         <Route path="/cancel" element={<Cancel />}/>
+        <Route path="/MyBooking" element={<MyBooking />}/>
       </Routes>
     </BrowserRouter>
   );
