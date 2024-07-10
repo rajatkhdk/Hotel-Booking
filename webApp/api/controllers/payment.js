@@ -66,11 +66,11 @@ export const retrieveSession = async (req, res, next) => {
 export const updateBookingStatus = async (req, res) => {
   const { session_id, booking_id } = req.query;
 
-  console.log('Received session_id:', session_id);
-  console.log('Received booking_id:', booking_id);
+  // console.log('Received session_id:', session_id);
+  // console.log('Received booking_id:', booking_id);
 
   if (!session_id || !booking_id) {
-    console.log('Missing session_id or booking_id');
+    // console.log('Missing session_id or booking_id');
     return res.status(400).json({ error: 'Missing session_id or booking_id' });
   }
 
@@ -85,7 +85,7 @@ export const updateBookingStatus = async (req, res) => {
         await booking.save();
         res.json({ message: 'Booking confirmed', booking });
       } else {
-        console.log('Booking already confirmed or not found');
+        // console.log('Booking already confirmed or not found');
         res.json({ message: 'Booking already confirmed', booking });
         //res.status(400).json({ error: 'Booking already confirmed or not found' });
       }
